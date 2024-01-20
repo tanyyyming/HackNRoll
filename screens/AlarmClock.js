@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, Alert } from "react-native";
+import { View, Text, Button, Image, Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Audio } from "expo-av";
 
 function AlarmClock({ navigation }) {
-  const [alarmTime, setAlarmTime] = useState(new Date());
+  const initialAlarmTime = new Date();
+  initialAlarmTime.setHours(8, 0, 0, 0);
+  const [alarmTime, setAlarmTime] = useState(initialAlarmTime);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
   const [sound, setSound] = useState();
@@ -60,9 +62,10 @@ function AlarmClock({ navigation }) {
   }, [alarmTime]);
 
   return (
-    <View className="flex-1 align-text align items-center justify-center bg-black">
+    <View className="flex-1 align-text align items-center justify-center bg-sky-700">
       <View className="py-10">
-        <Text className="text-3xl color-white">Your next alarm is at</Text>
+        {/* <Text className="text-3xl color-white text-center">Wake</Text> */}
+        <Image style={{ width: 340, height: 60}} source={require("../assets/logo.png")} />
       </View>
       <View
         style={{
@@ -70,7 +73,7 @@ function AlarmClock({ navigation }) {
           height: 300,
           borderRadius: 150,
           borderWidth: 5,
-          borderColor: "#FFD500",
+          borderColor: "#DBD0BD",
           borderStyle: "solid",
           justifyContent: "center",
         }}
@@ -81,7 +84,6 @@ function AlarmClock({ navigation }) {
             fontSize: 40,
             color: "white",
             textAlign: "center",
-            textShadowColor: "rgba(0, 0, 0, 0.5)",
             textShadowOffset: { width: 2, height: 2 },
             textShadowRadius: 2,
           }}
@@ -99,6 +101,7 @@ function AlarmClock({ navigation }) {
           mode="time"
           is24Hour={true}
           display="spinner"
+          textColor="white"
           onChange={handleTimeChange}
         />
       )}

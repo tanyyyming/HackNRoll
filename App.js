@@ -16,7 +16,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Alarm Clock" component={AlarmClock} />
         <Stack.Screen name="Ring" component={Ring} />
         <Stack.Screen name="Motivation" component={Motivation} />
