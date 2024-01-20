@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, Platform, Alert } from "react-native";
+import { View, Text, Button, Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Audio } from 'expo-av';
-
-function AlarmClock() {
+ 
+function AlarmClock({navigation}) {
     const [alarmTime, setAlarmTime] = useState(new Date());
     const [showTimePicker, setShowTimePicker] = useState(false);
-
+    
     const [sound, setSound] = useState();
     const [soundLoaded, setSoundLoaded] = useState(false);
 
@@ -130,8 +130,18 @@ function AlarmClock() {
               onChange={handleTimeChange}
             />
           )}
+            <Button
+                title="Go to motivation page"
+                onPress={() => navigation.navigate('Motivation')}
+                color="#3498db"
+            />
+            <Button
+                title="Go to Lift page"
+                onPress={() => navigation.navigate('Lift')}
+                color="#3498db"
+            />
         </View>
-      );
+    );
 };
-
+ 
 export default AlarmClock;
