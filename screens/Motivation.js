@@ -108,7 +108,7 @@ function Motivation({ navigation }) {
             onPressIn={startRecording}
             onPressOut={stopRecording}
           >
-            <Icon name="microphone" color="white" size={30} />
+            <Icon name="microphone" color="white" size={120} />
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -144,14 +144,14 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   speak: {
-    backgroundColor: "red",
+    backgroundColor: "#D9B5A9",
     display: "flex",
-    width: "26%",
-    height: "50%",
+    width: 300,
+    height: 300,
     alignItems: "center",
     justifyContent: "center",
     padding: 8,
-    borderRadius: 100,
+    borderRadius: 300,
   },
   btnContainer: {
     display: "flex",
