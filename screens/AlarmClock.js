@@ -1,19 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, Image, Alert } from "react-native";
+import { View, Text, Button, Image, Alert} from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Audio } from "expo-av";
 import { NavigationContainerRefContext } from "@react-navigation/core";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function AlarmClock({ navigation, route }) {
   const [isEnd, setIsEnd]= useState(false);
   const initialAlarmTime = new Date();
   initialAlarmTime.setHours(8, 0, 0, 0);
 
-  const [alarmTime, setAlarmTime] = useState(initialAlarmTime);
+
+  const [alarmTime, setAlarmTime] = useState(getData != null? getData():initialAlarmTime);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
   const [sound, setSound] = useState();
   const [soundLoaded, setSoundLoaded] = useState(false);
+
+ const storeData = async (value) => {
+   try {
+     console.log("store data");
+     const jsonValue = JSON.stringify(value);
+     await AsyncStorage.setItem('alarm', jsonValue);
+   } catch (e) {
+     // saving error
+   }
+ };
+
+const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('alarm');
+    console.log("get data");
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
+};
+
 
   useEffect(() => {
     if (route.params && route.params.isEnd) {
@@ -51,6 +74,7 @@ function AlarmClock({ navigation, route }) {
     hideTimePickerModal();
     if (selectedTime) {
       setAlarmTime(selectedTime);
+      storeData(selectedTime);
     }
   };
 
