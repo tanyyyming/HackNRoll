@@ -1,3 +1,4 @@
+import React from 'react';
 import AlarmClock from './screens/AlarmClock';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -25,5 +26,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-

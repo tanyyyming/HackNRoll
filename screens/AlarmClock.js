@@ -6,10 +6,31 @@ import { Audio } from "expo-av";
 function AlarmClock({ navigation }) {
   const initialAlarmTime = new Date();
   initialAlarmTime.setHours(8, 0, 0, 0);
+
   const [alarmTime, setAlarmTime] = useState(initialAlarmTime);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
   const [sound, setSound] = useState();
+  const [soundLoaded, setSoundLoaded] = useState(false);
+
+  useEffect(() => {
+    const loadSound = async () => {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/ring_long.mp3')
+      );
+      setSound(sound);
+      setSoundLoaded(true);
+      };
+
+      loadSound();
+
+      // Clean up the saound on unmount
+      return () => {
+        if (sound) {
+          sound.unloadAsync();
+        }
+      };
+    }, []);
 
   const showTimePickerModal = () => {
     setShowTimePicker(true);
@@ -26,40 +47,45 @@ function AlarmClock({ navigation }) {
     }
   };
 
-  async function playSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/ring_chicken.mp3")
-    );
-    setSound(sound);
+  function checkAlarm() {
+    const currentTime = new Date();
+    if (
+      currentTime.getHours() === alarmTime.getHours() &&
+      currentTime.getMinutes() === alarmTime.getMinutes()
+    ) {
+      playSound();
+      Alert.alert(
+        "Alarm",
+        "It is time!",
+        [
+          {
+            text: 'Close',
+            onPress: () => {
+              pauseSound();
+            }
+          }
+        ]
+      );
+    }
+  };
 
-    console.log("Playing Sound");
-    await sound.playAsync();
+  async function playSound() {
+    if (sound) {
+      await sound.playAsync();
+    }
+  }
+
+  async function pauseSound() {
+    if (sound) {
+      await sound.pauseAsync();
+    }
   }
 
   useEffect(() => {
-    const checkAlarm = setInterval(() => {
-      const currentTime = new Date();
-      if (
-        currentTime.getHours() === alarmTime.getHours() &&
-        currentTime.getMinutes() === alarmTime.getMinutes()
-      ) {
-        // Matched the set alarm time, show an alert
-        Alert.alert("Alarm", "It is time!");
-        clearInterval(checkAlarm);
-        playSound();
-        navigation.navigate("Lift");
-      }
-    }, 1000); // Check every second
-    // Cleanup on component unmount
-    return () => {
-      clearInterval(checkAlarm);
-      if (sound) {
-        console.log("Unloading Sound");
-        sound.unloadAsync();
-      }
-    };
-  }, [alarmTime]);
+    if (soundLoaded) {
+      checkAlarm();
+    }
+  }, [soundLoaded, alarmTime]);
 
   return (
     <View className="flex-1 align-text align items-center justify-center bg-sky-700">
