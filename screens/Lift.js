@@ -49,20 +49,49 @@ function Lift({navigation}) {
   }, [maxX, maxY, maxZ]);
 
   return (
-    <View className="flex-1 items-center justify-center bg-sky-700">
+    <View className="flex-1 align-text align items-center justify-center bg-coconut">
       <View>
-      <Text className="py-12 text-3xl color-white">Swing your phone in all directions!</Text>
+      <Text
+        className="py-12 text-3xl color-white"
+        style={{
+          fontFamily: "Optima",
+          fontSize: 30,
+          fontWeight: "bold",
+          color: "#5D2510",
+          textAlign: "center",
+          marginBottom: -15,
+        }}
+      >
+        Swing Your Phone
+      </Text>
       </View>
-      <Progress.Bar progress={acc/threshold} color={'#D9B5A9'} height={10} width={300} />
-      <Image style={{width: 400, height: 400}} source={require('../assets/23.png')} />
+      <Progress.Bar
+        progress={acc/threshold}
+        color={'#5D2510'}
+        height={10}
+        width={300}
+        style={{borderRadius: 10, borderWidth: 5, borderColor: '#5D2510'}}
+      />
+      <Image style={{width: 300, height: 400}} source={require('../assets/swing.png')} />
       <Button
         title="Go to calculate page"
         onPress={() => navigation.navigate('Calculate')}
         color="#3498db"
       />
+      <Text
+        className="py-12 text-3xl color-white"
+        style={{
+          fontFamily: "Optima",
+          fontSize: 25,
+          fontWeight: "bold",
+          color: "#5D2510",
+          textAlign: "center",
+        }}
+      >
+        In All Directions~
+      </Text>
     </View>
  );
 }
 
 export default Lift;
-
