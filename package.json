@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^7.6.2",
+    "@react-native-voice/voice": "^3.2.4",
+    "eas-cli": "^7.0.0",
     "expo": "~50.0.2",
+    "expo-dev-client": "~3.3.6",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.2",
