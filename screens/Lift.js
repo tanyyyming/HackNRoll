@@ -66,9 +66,4 @@ function Lift({navigation}) {
 }
 
 export default Lift;
-//
-// <View className="h-3/5 w-2 bg-warm-yellow rounded-lg">
-//      <View className="h-1/2 w-2 bg-neutral-200 rounded-lg">
-//      </View>
-//    </View>
 
