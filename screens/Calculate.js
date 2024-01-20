@@ -10,81 +10,109 @@ import {
   Button,
   Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Feather';
 import Voice from '@react-native-voice/voice';
 import { Alert } from 'react-native';
 
 function Calculate({ navigation }) {
 
-  const [text, setText] = useState('');
+  const [answer, setAnswer] = useState('');
 
-  const [result, setResult] = useState("");
-
-  const motivationalQuotes = [
-    "I'm the best!", 
+  const calculationQnA = [
+    {question: '55 x 48', answer: '2640'},
+    {question: '33 x 85', answer: '2805'},
+    {question: '43 x 79', answer: '3397'},
   ];
-  const [quote, setQuote] = useState(
-    motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]
+  const [qna, setQna] = useState(
+    calculationQnA[Math.floor(Math.random() * calculationQnA.length)]
   );
 
-  const speechStartHandler = (e) => {
-    console.log("speechStart successful", e);
-  };
-  const speechEndHandler = (e) => {
-    console.log("stop handler", e);
-  };
-  const speechResultsHandler = (e) => {
-    const text = e.value[0];
-    setResult(text);
-  };
+  const handleButtonPress = (digit) => {
+    setAnswer(answer + digit,toString());
+  }
 
-  const startRecording = async () => {
-    try {
-      await Voice.start("en-Us");
-    } catch (error) {
-      console.log("error", error);
+  const handleDeleteButtonPress = () => {
+    setAnswer(answer.slice(0, -1));
+  }
+
+  const handleSubmitButtonPress = () => {
+    const correctAnswer = qna.answer;
+    if (answer === correctAnswer) {
+      Alert.alert("Congratulation", "You are now officially awake!");
+      navigation.navigate("Alarm Clock", {isEnd: true});
+    } else {
+      Alert.alert("You are still sleepy!", "Try again my friend");
+      setAnswer('');
     }
-  };
-  const stopRecording = async () => {
-    try {
-      await Voice.stop();
-
-      if (isSameSentence(result, quote)) {
-        Alert.alert("Congratulation", "You are now awake!");
-        navigation.navigate("Alarm Clock", {isEnd: true});
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  useEffect(() => {
-    Voice.onSpeechStart = speechStartHandler;
-    Voice.onSpeechEnd = speechEndHandler;
-    Voice.onSpeechResults = speechResultsHandler;
-    return () => {
-      Voice.destroy().then(Voice.removeAllListeners);
-    };
-  }, []);
+  }
 
   return (
     <View className="flex-1 align-text align items-center justify-center bg-coconut">
       <Image style={{ width: 100, height: 100}} source={require("../assets/chicken.png")} />
       <SafeAreaView style={{marginHorizontal:10}} values={['center']}>
-        <Text style={styles.headingText}>{quote}</Text>
+        <Text style={styles.headingText}>{qna.question}</Text>
         <View style={styles.btnContainer}>
           <TextInput 
             style={styles.textInputStyle}
-            keyboardType='numeric'
-            maxLength={10}  //setting limit of input
+            value={answer}
+            editable={false}
+            placeholder='Your answer'
           />
         </View>
-        <Button
-          title="something"
-          onPress={() => {
-            navigation.navigate("Alarm Clock", {isEnd: true});            
-          }}
-          />
+        <View style={styles.btnContainer}>
+          {[1, 2, 3].map((number) => (
+            <TouchableOpacity
+              key={number}
+              style={styles.button}
+              onPress={() => handleButtonPress(number)}
+            >
+              <Text style={styles.buttonText}>{number}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <View style={styles.btnContainer}>
+          {[4, 5, 6].map((number) => (
+            <TouchableOpacity
+              key={number}
+              style={styles.button}
+              onPress={() => handleButtonPress(number)}
+            >
+              <Text style={styles.buttonText}>{number}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <View style={styles.btnContainer}>
+          {[7, 8, 9].map((number) => (
+            <TouchableOpacity
+              key={number}
+              style={styles.button}
+              onPress={() => handleButtonPress(number)}
+            >
+              <Text style={styles.buttonText}>{number}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <View style={styles.btnContainer}>
+        <TouchableOpacity
+            style={styles.specialButton}
+            onPress={handleSubmitButtonPress}
+          >
+            <Text style={styles.submitButtonText}>OK!</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            key={0}
+            style={styles.button}
+            onPress={() => handleButtonPress(0)}
+          >
+            <Text style={styles.buttonText}>0</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.specialButton}
+            onPress={handleDeleteButtonPress}
+          >
+            <Icon name="delete" color="black" size={35} />
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -100,16 +128,25 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginVertical: 26,
     fontWeight: "light",
-    fontSize: 26,
-    color: "#DBD0BD",
+    fontSize: 40,
+    color: "#5D2510",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 32,
+    fontWeight: "bold",
+  },
+  submitButtonText: {
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 24,
   },
   textInputStyle: {
     flexDirection: "row",
+    flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "white",
-    height: 50,
-    width:150,
     borderRadius: 20,
     paddingVertical: 16,
     paddingHorizontal: 16,
@@ -117,16 +154,27 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
     shadowOpacity: 0.4,
-    color: "#DBD0BD",
+    color: "#5D2510",
+    fontSize: 24
   },
-  speak: {
+  button: {
     backgroundColor: "#D9B5A9",
     display: "flex",
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     alignItems: "center",
     justifyContent: "center",
-    padding: 8,
+    marginHorizontal: 10,
+    borderRadius: 300,
+  },
+  specialButton: {
+    backgroundColor: "#EDE1D2",
+    display: "flex",
+    width: 80,
+    height: 80,
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 10,
     borderRadius: 300,
   },
   btnContainer: {
