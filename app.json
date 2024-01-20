@@ -25,7 +25,8 @@
       },
       "permissions": [
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "package": "com.tanyyyming.TestApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
