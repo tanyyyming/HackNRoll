@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Voice from '@react-native-voice/voice';
@@ -48,7 +49,7 @@ function Motivation({ navigation }) {
       if (isSameSentence(result, quote)) {
         setResult("correct");
         Alert.alert("Congratulation", "You are now awake!");
-        navigation.navigate("Alarm Clock");
+        navigation.navigate("Alarm Clock", {isEnd: true});
       }
     } catch (error) {
       console.log("error", error);
@@ -111,6 +112,12 @@ function Motivation({ navigation }) {
             <Icon name="microphone" color="white" size={120} />
           </TouchableOpacity>
         </View>
+        <Button
+          title="something"
+          onPress={() => {
+            navigation.navigate("Alarm Clock", {isEnd: true});            
+          }}
+          />
       </SafeAreaView>
     </View>
   );
