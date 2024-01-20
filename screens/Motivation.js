@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Voice from '@react-native-voice/voice';
@@ -83,9 +84,10 @@ function Motivation({ navigation }) {
 
   return (
     <View className="flex-1 align-text align items-center justify-center bg-sky-700">
-      <SafeAreaView values={['center']}>
+      <Image style={{ width: 100, height: 100}} source={require("../assets/chicken.png")} />
+      <SafeAreaView style={{marginHorizontal:10}} values={['center']}>
         <Text style={styles.headingText}>{quote}</Text>
-        {/* <View style={styles.textInputStyle}>
+        <View style={styles.textInputStyle}>
           <TextInput
             value={result}
             multiline={true}
@@ -96,14 +98,14 @@ function Motivation({ navigation }) {
             }}
             onChangeText={(text) => setResult(text)}
           />
-        </View> */}
+        </View>
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.speak}
             onPressIn={startRecording}
             onPressOut={stopRecording}
           >
-            <Icon name="microphone" color="white" size={120} />
+            <Icon name="microphone" color="white" size={50} />
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -120,8 +122,9 @@ const styles = StyleSheet.create({
   headingText: {
     alignSelf: "center",
     marginVertical: 26,
-    fontWeight: "bold",
+    fontWeight: "light",
     fontSize: 26,
+    color: "#DBD0BD",
   },
   textInputStyle: {
     flexDirection: "row",
@@ -136,13 +139,13 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
     shadowOpacity: 0.4,
-    color: "#000",
+    color: "#DBD0BD",
   },
   speak: {
     backgroundColor: "#D9B5A9",
     display: "flex",
-    width: 300,
-    height: 300,
+    width: 100,
+    height: 100,
     alignItems: "center",
     justifyContent: "center",
     padding: 8,

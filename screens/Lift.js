@@ -50,11 +50,11 @@ function Lift({navigation}) {
   }, [maxX, maxY, maxZ]);
 
   return (
-    <View className="flex-1 items-center justify-center bg-black">
+    <View className="flex-1 items-center justify-center bg-sky-700">
       <View>
       <Text className="py-12 text-3xl color-white">Swing your phone in all directions!</Text>
       </View>
-      <Progress.Bar progress={acc/threshold} color={'#FFD500'} height={10} width={300} />
+      <Progress.Bar progress={acc/threshold} color={'#D9B5A9'} height={10} width={300} />
       <Image style={{width: 400, height: 400}} source={require('../assets/23.png')} />
       <Button
         title="Go to motivation page"
