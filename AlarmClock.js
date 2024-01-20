@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, StyleSheet, Platform, Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Audio } from 'expo-av';
  
 function AlarmClock() {
     const [alarmTime, setAlarmTime] = useState(new Date());
     const [showTimePicker, setShowTimePicker] = useState(false);
+
+    const [sound, setSound] = useState();
  
     const showTimePickerModal = () => {
         setShowTimePicker(true);
@@ -20,8 +23,18 @@ function AlarmClock() {
             setAlarmTime(selectedTime);
         }
     };
- 
-    useEffect(() => {
+
+    async function playSound() {
+        console.log('Loading Sound');
+        const { sound } = await Audio.Sound.createAsync( require('./assets/ring_chicken.mp3')
+        );
+        setSound(sound);
+    
+        console.log('Playing Sound');
+        await sound.playAsync();
+    }
+    
+    useEffect(() => {   
         const checkAlarm = setInterval(() => {
             const currentTime = new Date();
             if (
@@ -30,12 +43,18 @@ function AlarmClock() {
             ) {
                 // Matched the set alarm time, show an alert
                 Alert.alert("Alarm", "It is time!");
-                // Stop checking once the alert is shown
-                clearInterval(checkAlarm); 
+                clearInterval(checkAlarm);
+                playSound();
             }
         }, 1000); // Check every second
         // Cleanup on component unmount
-        return () => clearInterval(checkAlarm); 
+        return () => {
+            clearInterval(checkAlarm);
+            if (sound) {
+                console.log('Unloading Sound');
+                sound.unloadAsync();
+            }
+        };
     }, [alarmTime]);
  
     return (
