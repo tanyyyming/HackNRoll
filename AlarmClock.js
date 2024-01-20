@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, Platform, Alert } from "react-native";
+import { View, Text, Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Audio } from 'expo-av';
 
