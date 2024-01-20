@@ -1,30 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Text, View } from 'react-native';
+import AlarmClock from './screens/AlarmClock';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AlarmClock from './AlarmClock';
+import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+import Ring from './screens/Ring';
+import Lift from './screens/Lift';
 import { NativeWindStyleSheet } from "nativewind";
+import Motivation from './screens/Motivation';
+
 NativeWindStyleSheet.setOutput({
   default: "native",
 });
-// import Motivation from './Motivation';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={AlarmClock} />
-        {/* <Stack.Screen name="Motivation" component={Motivation} /> */}
+        <Stack.Screen name="Alarm Clock" component={AlarmClock} />
+        <Stack.Screen name="Ring" component={Ring} />
+        <Stack.Screen name="Motivation" component={Motivation} />
+        <Stack.Screen name="Lift" component={Lift} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-//   <View className="flex-1 items-center justify-center bg-white">
-//      <Text>Open App.js to start working on your app!</Text>
-//      <StatusBar style="auto" />
-//    </View>
 
 
