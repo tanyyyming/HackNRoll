@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Button, Image, Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Audio } from "expo-av";
+import { NavigationContainerRefContext } from "@react-navigation/core";
 
-function AlarmClock({ navigation }) {
+function AlarmClock({ navigation, route }) {
+  const [isEnd, setIsEnd]= useState(false);
   const initialAlarmTime = new Date();
   initialAlarmTime.setHours(8, 0, 0, 0);
 
@@ -14,9 +16,15 @@ function AlarmClock({ navigation }) {
   const [soundLoaded, setSoundLoaded] = useState(false);
 
   useEffect(() => {
+    if (route.params && route.params.isEnd) {
+      pauseSound();
+    }
+  }, [route])
+
+  useEffect(() => {
     const loadSound = async () => {
       const { sound } = await Audio.Sound.createAsync(
-        require('../assets/ring_long.mp3')
+        require('../assets/ring_song.mp3')
       );
       setSound(sound);
       setSoundLoaded(true);
@@ -66,19 +74,20 @@ function AlarmClock({ navigation }) {
             currentTime.getMinutes() === alarmTime.getMinutes()
         ) {
             playSound();
-            Alert.alert(
-              "Alarm",
-              "It is time!",
-              [
-                {
-                  text: 'Close',
-                  onPress: () => {
-                    pauseSound();
-                  }
-                }
-              ]
-            );
-            clearInterval(checkAlarm); 
+            // Alert.alert(
+            //   "Alarm",
+            //   "It is time!",
+            //   [
+            //     {
+            //       text: 'Close',
+            //       onPress: () => {
+            //         pauseSound();
+            //       }
+            //     }
+            //   ]
+            // );
+            // clearInterval(checkAlarm); 
+            navigation.navigate('Lift');
         }
     }, 1000);
     return () => clearInterval(checkAlarm); 
