@@ -1,12 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import AlarmClock from './screens/AlarmClock';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import Ring from './screens/Ring';
-import Ex1 from './screens/Ex1';
-import Ex2 from './screens/Ex2';
+import Lift from './Lift';
+import { NativeWindStyleSheet } from "nativewind";
+NativeWindStyleSheet.setOutput({
+  default: "native",
+});
+import Motivation from './Motivation';
 
 const Stack = createStackNavigator();
 
@@ -16,18 +18,11 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Alarm Clock" component={AlarmClock} />
         <Stack.Screen name="Ring" component={Ring} />
-        <Stack.Screen name="Ex1" component={Ex1} />
-        <Stack.Screen name="Ex2" component={Ex2} />
+        <Stack.Screen name="Motivation" component={Motivation} />
+        <Stack.Screen name="Lift" component={Lift} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
