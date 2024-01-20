@@ -85,7 +85,7 @@ function AlarmClock({ navigation }) {
   }, [soundLoaded, alarmTime]);
 
   return (
-    <View className="flex-1 align-text align items-center justify-center bg-sky-700">
+    <View className="flex-1 align-text align items-center justify-center bg-coconut">
       <View className="py-10">
         <Image style={{ width: 340, height: 60}} source={require("../assets/logo.png")} />
       </View>
@@ -95,7 +95,7 @@ function AlarmClock({ navigation }) {
           height: 300,
           borderRadius: 150,
           borderWidth: 5,
-          borderColor: "#DBD0BD",
+          borderColor: "#5D2510",
           borderStyle: "solid",
           justifyContent: "center",
         }}
@@ -103,11 +103,11 @@ function AlarmClock({ navigation }) {
         <Text
           onPress={showTimePickerModal}
           style={{
-            fontSize: 40,
-            color: "white",
+            fontFamily: "Optima",
+            fontSize: 50,
+            fontWeight: "bold",
+            color: "#5D2510",
             textAlign: "center",
-            textShadowOffset: { width: 2, height: 2 },
-            textShadowRadius: 2,
           }}
         >
           {alarmTime.toLocaleTimeString([], {
@@ -123,7 +123,7 @@ function AlarmClock({ navigation }) {
           mode="time"
           is24Hour={true}
           display="spinner"
-          textColor="white"
+          textColor="#5D2510"
           onChange={handleTimeChange}
         />
       )}

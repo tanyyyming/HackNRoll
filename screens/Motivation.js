@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  Image
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Voice from '@react-native-voice/voice';
@@ -17,7 +17,7 @@ function Motivation({ navigation }) {
   const [result, setResult] = useState("");
 
   const motivationalQuotes = [
-    "I'm the best!",
+    "I'm the best!", 
   ];
   const [quote, setQuote] = useState(
     motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]
@@ -83,11 +83,11 @@ function Motivation({ navigation }) {
   }, []);
 
   return (
-    <View className="flex-1 align-text align items-center justify-center bg-sky-700">
+    <View className="flex-1 align-text align items-center justify-center bg-coconut">
       <Image style={{ width: 100, height: 100}} source={require("../assets/chicken.png")} />
       <SafeAreaView style={{marginHorizontal:10}} values={['center']}>
         <Text style={styles.headingText}>{quote}</Text>
-        <View style={styles.textInputStyle}>
+        {/* <View style={styles.textInputStyle}>
           <TextInput
             value={result}
             multiline={true}
@@ -98,7 +98,7 @@ function Motivation({ navigation }) {
             }}
             onChangeText={(text) => setResult(text)}
           />
-        </View>
+        </View> */}
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.speak}
