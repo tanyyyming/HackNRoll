@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, Platform, Alert } from "react-native";
+import { View, Text, Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import Svg, { Circle } from "react-native-svg";
 
 function AlarmClock() {
   const [alarmTime, setAlarmTime] = useState(new Date());
