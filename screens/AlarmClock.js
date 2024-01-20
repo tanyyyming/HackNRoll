@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Button, StyleSheet, Platform, Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
  
-function AlarmClock() {
+function AlarmClock({navigation}) {
     const [alarmTime, setAlarmTime] = useState(new Date());
     const [showTimePicker, setShowTimePicker] = useState(false);
  
@@ -66,6 +66,11 @@ function AlarmClock() {
             <Button
                 title="Set Alarm"
                 onPress={showTimePickerModal}
+                color="#3498db"
+            />
+            <Button
+                title="Go to ringing page"
+                onPress={() => navigation.navigate('Ring')}
                 color="#3498db"
             />
         </View>
