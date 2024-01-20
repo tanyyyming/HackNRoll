@@ -10,7 +10,6 @@ import Motivation from './Motivation';
 
 export default function App() {
   return (
-   <AlarmClock/>
     <Motivation />
   );
 }
