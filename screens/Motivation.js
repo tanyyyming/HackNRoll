@@ -85,21 +85,9 @@ function Motivation({ navigation }) {
 
   return (
     <View className="flex-1 align-text align items-center justify-center bg-coconut">
-      <Image style={{ width: 100, height: 100}} source={require("../assets/chicken.png")} />
+      <Image style={{ width: 220, height: 180}} source={require("../assets/read.png")} />
       <SafeAreaView style={{marginHorizontal:10}} values={['center']}>
         <Text style={styles.headingText}>{quote}</Text>
-        {/* <View style={styles.textInputStyle}>
-          <TextInput
-            value={result}
-            multiline={true}
-            placeholder="say something!"
-            style={{
-              flex: 1,
-              height: "100%",
-            }}
-            onChangeText={(text) => setResult(text)}
-          />
-        </View> */}
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.speak}
@@ -109,12 +97,12 @@ function Motivation({ navigation }) {
             <Icon name="microphone" color="white" size={50} />
           </TouchableOpacity>
         </View>
-        <Button
+        {/* <Button
           title="something"
           onPress={() => {
             navigation.navigate("Alarm Clock", {isEnd: true});            
           }}
-          />
+          /> */}
       </SafeAreaView>
     </View>
   );
@@ -128,10 +116,10 @@ const styles = StyleSheet.create({
   },
   headingText: {
     alignSelf: "center",
-    marginVertical: 26,
-    fontWeight: "light",
+    marginVertical: 30,
+    fontWeight: "bold",
     fontSize: 26,
-    color: "#DBD0BD",
+    color: "#5D2510",
   },
   textInputStyle: {
     flexDirection: "row",
@@ -166,4 +154,5 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
 });
+
 export default Motivation;
