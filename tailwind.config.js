@@ -1,7 +1,7 @@
 // tailwind.config.js
 
 module.exports = {
-   content: ["./App.{js,jsx,ts,tsx}","./AlarmClock.{js,jsx,ts,tsx}","./Lift.{js,jsx,ts,tsx}","./<custom directory>/**/*.{js,jsx,ts,tsx}"],
+   content: ["./App.{js,jsx,ts,tsx}","./screens/AlarmClock.{js,jsx,ts,tsx}","./screens/*.js","./Lift.{js,jsx,ts,tsx}","./<custom directory>/**/*.{js,jsx,ts,tsx}"],
     theme: {
       extend: {
       colors: {

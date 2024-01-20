@@ -3,12 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import Ring from './screens/Ring';
-import Lift from './Lift';
+import Lift from './screens/Lift';
 import { NativeWindStyleSheet } from "nativewind";
+import Motivation from './screens/Motivation';
+
 NativeWindStyleSheet.setOutput({
   default: "native",
 });
-import Motivation from './Motivation';
 
 const Stack = createStackNavigator();
 

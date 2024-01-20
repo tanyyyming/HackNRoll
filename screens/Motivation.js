@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Voice from '@react-native-voice/voice';
 
-function Motivation() {
+function Motivation({navigation}) {
   const [result, setResult] = useState('');
 
   const motivationalQuotes = [
@@ -44,6 +44,8 @@ function Motivation() {
       await Voice.stop();
       if (isSameSentence(result, quote)) {
         setResult('correct');
+        Alert.alert("Congradulation", "You are now awake!");
+        navigation.navigate('Alarm Clock');
       }
     } catch (error) {
       console.log('error', error);

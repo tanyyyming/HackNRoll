@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -27,7 +26,7 @@ function AlarmClock({navigation}) {
 
     async function playSound() {
         console.log('Loading Sound');
-        const { sound } = await Audio.Sound.createAsync( require('./assets/ring_chicken.mp3')
+        const { sound } = await Audio.Sound.createAsync( require('../assets/ring_chicken.mp3')
         );
         setSound(sound);
     
@@ -46,6 +45,7 @@ function AlarmClock({navigation}) {
                 Alert.alert("Alarm", "It is time!");
                 clearInterval(checkAlarm);
                 playSound();
+                navigation.navigate('Lift');
             }
         }, 1000); // Check every second
         // Cleanup on component unmount
@@ -102,8 +102,13 @@ function AlarmClock({navigation}) {
             />
           )}
             <Button
-                title="Go to ringing page"
-                onPress={() => navigation.navigate('Ring')}
+                title="Go to motivation page"
+                onPress={() => navigation.navigate('Motivation')}
+                color="#3498db"
+            />
+            <Button
+                title="Go to Lift page"
+                onPress={() => navigation.navigate('Lift')}
                 color="#3498db"
             />
         </View>
