@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Button,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Voice from '@react-native-voice/voice';
@@ -17,9 +18,7 @@ function Motivation({ navigation }) {
   const [result, setResult] = useState("");
 
   const motivationalQuotes = [
-    "I am the best, I am the best, I am the best!",
-    "I am a winner, I am a winner, I am a winner!",
-    "I am a champion, I am a champion, I am a champion!",
+    "I'm the best!", 
   ];
   const [quote, setQuote] = useState(
     motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]
@@ -46,17 +45,14 @@ function Motivation({ navigation }) {
   const stopRecording = async () => {
     try {
       await Voice.stop();
+
       if (isSameSentence(result, quote)) {
-        setResult("correct");
         Alert.alert("Congratulation", "You are now awake!");
         navigation.navigate("Alarm Clock", {isEnd: true});
       }
     } catch (error) {
       console.log("error", error);
     }
-  };
-  const clear = () => {
-    setResult("");
   };
 
   const isSameSentence = (str1, str2) => {
@@ -88,8 +84,9 @@ function Motivation({ navigation }) {
   }, []);
 
   return (
-    <View className="flex-1 align-text align items-center justify-center bg-sky-700">
-      <SafeAreaView values={['center']}>
+    <View className="flex-1 align-text align items-center justify-center bg-coconut">
+      <Image style={{ width: 100, height: 100}} source={require("../assets/chicken.png")} />
+      <SafeAreaView style={{marginHorizontal:10}} values={['center']}>
         <Text style={styles.headingText}>{quote}</Text>
         {/* <View style={styles.textInputStyle}>
           <TextInput
@@ -109,7 +106,7 @@ function Motivation({ navigation }) {
             onPressIn={startRecording}
             onPressOut={stopRecording}
           >
-            <Icon name="microphone" color="white" size={120} />
+            <Icon name="microphone" color="white" size={50} />
           </TouchableOpacity>
         </View>
         <Button
@@ -132,8 +129,9 @@ const styles = StyleSheet.create({
   headingText: {
     alignSelf: "center",
     marginVertical: 26,
-    fontWeight: "bold",
+    fontWeight: "light",
     fontSize: 26,
+    color: "#DBD0BD",
   },
   textInputStyle: {
     flexDirection: "row",
@@ -148,13 +146,13 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
     shadowOpacity: 0.4,
-    color: "#000",
+    color: "#DBD0BD",
   },
   speak: {
     backgroundColor: "#D9B5A9",
     display: "flex",
-    width: 300,
-    height: 300,
+    width: 100,
+    height: 100,
     alignItems: "center",
     justifyContent: "center",
     padding: 8,
