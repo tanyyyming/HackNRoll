@@ -8,6 +8,27 @@ function AlarmClock() {
     const [showTimePicker, setShowTimePicker] = useState(false);
 
     const [sound, setSound] = useState();
+    const [soundLoaded, setSoundLoaded] = useState(false);
+
+    useEffect(() => {
+      const loadSound = async () => {
+        const { sound } = await Audio.Sound.createAsync(
+          require('./assets/ring_long.mp3')
+        );
+        setSound(sound);
+        setSoundLoaded(true);
+        console.log('sound loaded');
+      };
+
+      loadSound();
+
+      // Clean up the saound on unmount
+      return () => {
+        if (sound) {
+          sound.unloadAsync();
+        }
+      };
+    }, []);
  
     const showTimePickerModal = () => {
         setShowTimePicker(true);
@@ -24,38 +45,47 @@ function AlarmClock() {
         }
     };
 
+    function checkAlarm() {
+      const currentTime = new Date();
+      if (
+          currentTime.getHours() === alarmTime.getHours() &&
+          currentTime.getMinutes() === alarmTime.getMinutes()
+      ) {
+          playSound();
+          Alert.alert(
+            "Alarm",
+            "It is time!",
+            [
+              {
+                text: 'Close',
+                onPress: () => {
+                  pauseSound();
+                }
+              }
+            ]
+          );
+      }
+    };
+
     async function playSound() {
-        console.log('Loading Sound');
-        const { sound } = await Audio.Sound.createAsync( require('./assets/ring_chicken.mp3')
-        );
-        setSound(sound);
-    
-        console.log('Playing Sound');
+      console.log('entered play');
+      if (sound) {
+        console.log('try to play');
         await sound.playAsync();
+      }
     }
-    
-    useEffect(() => {   
-        const checkAlarm = setInterval(() => {
-            const currentTime = new Date();
-            if (
-                currentTime.getHours() === alarmTime.getHours() &&
-                currentTime.getMinutes() === alarmTime.getMinutes()
-            ) {
-                // Matched the set alarm time, show an alert
-                Alert.alert("Alarm", "It is time!");
-                clearInterval(checkAlarm);
-                playSound();
-            }
-        }, 1000); // Check every second
-        // Cleanup on component unmount
-        return () => {
-            clearInterval(checkAlarm);
-            if (sound) {
-                console.log('Unloading Sound');
-                sound.unloadAsync();
-            }
-        };
-    }, [alarmTime]);
+
+    async function pauseSound() {
+      if (sound) {
+        await sound.pauseAsync();
+      }
+    }
+
+    useEffect(() => {
+      if (soundLoaded) {
+        checkAlarm();
+      }
+    }, [soundLoaded, alarmTime]);
  
     return (
         <View className="flex-1 align-text align items-center justify-center bg-black">
@@ -105,4 +135,3 @@ function AlarmClock() {
 };
 
 export default AlarmClock;
-
