@@ -28,16 +28,16 @@ function AlarmClock({ navigation, route }) {
       );
       setSound(sound);
       setSoundLoaded(true);
-      };
+    };
 
-      loadSound();
+    loadSound();
 
-      return () => {
-        if (sound) {
-          sound.unloadAsync();
-        }
-      };
-    }, []);
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
+  }, []);
 
   const showTimePickerModal = () => {
     setShowTimePicker(true);
@@ -90,13 +90,18 @@ function AlarmClock({ navigation, route }) {
             navigation.navigate('Lift');
         }
     }, 1000);
-    return () => clearInterval(checkAlarm); 
+    return () => clearInterval(checkAlarm);
   }, [soundLoaded, alarmTime]);
 
   return (
     <View className="flex-1 align-text align items-center justify-center bg-coconut">
       <View className="py-10">
-        <Image style={{ width: 340, height: 60}} source={require("../assets/logo.png")} />
+        {!showTimePicker && (
+          <Image
+            style={{ width: 340, height: 60 }}
+            source={require("../assets/logo.jpg")}
+          />
+        )}
       </View>
       <View
         style={{
@@ -107,13 +112,14 @@ function AlarmClock({ navigation, route }) {
           borderColor: "#5D2510",
           borderStyle: "solid",
           justifyContent: "center",
+          marginTop: 20,
         }}
       >
         <Text
           onPress={showTimePickerModal}
           style={{
             fontFamily: "Optima",
-            fontSize: 50,
+            fontSize: 60,
             fontWeight: "bold",
             color: "#5D2510",
             textAlign: "center",
@@ -133,10 +139,35 @@ function AlarmClock({ navigation, route }) {
           is24Hour={true}
           display="spinner"
           textColor="#5D2510"
+          accentColor="#5D2510"
           onChange={handleTimeChange}
         />
       )}
-      <Button
+
+      <View className="py-10">
+        <Image
+          style={{ width: 110, height: 110 }}
+          source={require("../assets/chicken.png")}
+        />
+      </View>
+
+      {!showTimePicker && (
+        <View>
+          <Text
+            style={{
+              fontFamily: "Optima",
+              fontSize: 25,
+              fontWeight: "bold",
+              color: "#5D2510",
+              textAlign: "center",
+            }}
+          >
+            All Is Well...
+          </Text>
+        </View>
+      )}
+
+      {/* <Button
         title="Go to motivation page"
         onPress={() => navigation.navigate("Motivation")}
         color="#3498db"
@@ -151,6 +182,7 @@ function AlarmClock({ navigation, route }) {
         onPress={() => navigation.navigate("Calculate")}
         color="#3498db"
       />
+      /> */}
     </View>
   );
 }
