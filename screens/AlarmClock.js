@@ -24,7 +24,6 @@ function AlarmClock({ navigation }) {
 
       loadSound();
 
-      // Clean up the saound on unmount
       return () => {
         if (sound) {
           sound.unloadAsync();
@@ -47,28 +46,6 @@ function AlarmClock({ navigation }) {
     }
   };
 
-  function checkAlarm() {
-    const currentTime = new Date();
-    if (
-      currentTime.getHours() === alarmTime.getHours() &&
-      currentTime.getMinutes() === alarmTime.getMinutes()
-    ) {
-      playSound();
-      Alert.alert(
-        "Alarm",
-        "It is time!",
-        [
-          {
-            text: 'Close',
-            onPress: () => {
-              pauseSound();
-            }
-          }
-        ]
-      );
-    }
-  };
-
   async function playSound() {
     if (sound) {
       await sound.playAsync();
@@ -82,15 +59,34 @@ function AlarmClock({ navigation }) {
   }
 
   useEffect(() => {
-    if (soundLoaded) {
-      checkAlarm();
-    }
+    const checkAlarm = setInterval(() => {
+        const currentTime = new Date();
+        if (
+            currentTime.getHours() === alarmTime.getHours() &&
+            currentTime.getMinutes() === alarmTime.getMinutes()
+        ) {
+            playSound();
+            Alert.alert(
+              "Alarm",
+              "It is time!",
+              [
+                {
+                  text: 'Close',
+                  onPress: () => {
+                    pauseSound();
+                  }
+                }
+              ]
+            );
+            clearInterval(checkAlarm); 
+        }
+    }, 1000);
+    return () => clearInterval(checkAlarm); 
   }, [soundLoaded, alarmTime]);
 
   return (
     <View className="flex-1 align-text align items-center justify-center bg-sky-700">
       <View className="py-10">
-        {/* <Text className="text-3xl color-white text-center">Wake</Text> */}
         <Image style={{ width: 340, height: 60}} source={require("../assets/logo.png")} />
       </View>
       <View
