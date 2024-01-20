@@ -16,9 +16,7 @@ function Motivation({ navigation }) {
   const [result, setResult] = useState("");
 
   const motivationalQuotes = [
-    "I am the best, I am the best, I am the best!",
-    "I am a winner, I am a winner, I am a winner!",
-    "I am a champion, I am a champion, I am a champion!",
+    "I'm the best!",
   ];
   const [quote, setQuote] = useState(
     motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]
@@ -45,17 +43,14 @@ function Motivation({ navigation }) {
   const stopRecording = async () => {
     try {
       await Voice.stop();
+
       if (isSameSentence(result, quote)) {
-        setResult("correct");
         Alert.alert("Congratulation", "You are now awake!");
         navigation.navigate("Alarm Clock");
       }
     } catch (error) {
       console.log("error", error);
     }
-  };
-  const clear = () => {
-    setResult("");
   };
 
   const isSameSentence = (str1, str2) => {
