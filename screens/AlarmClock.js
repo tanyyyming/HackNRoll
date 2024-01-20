@@ -13,7 +13,7 @@ function AlarmClock({navigation}) {
     useEffect(() => {
       const loadSound = async () => {
         const { sound } = await Audio.Sound.createAsync(
-          require('./assets/ring_long.mp3')
+          require('../assets/ring_long.mp3')
         );
         setSound(sound);
         setSoundLoaded(true);
@@ -68,9 +68,7 @@ function AlarmClock({navigation}) {
     };
 
     async function playSound() {
-      console.log('entered play');
       if (sound) {
-        console.log('try to play');
         await sound.playAsync();
       }
     }
