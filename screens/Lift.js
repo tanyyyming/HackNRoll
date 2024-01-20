@@ -56,8 +56,8 @@ function Lift({navigation}) {
       <Progress.Bar progress={acc/threshold} color={'#D9B5A9'} height={10} width={300} />
       <Image style={{width: 400, height: 400}} source={require('../assets/23.png')} />
       <Button
-        title="Go to motivation page"
-        onPress={() => navigation.navigate('Motivation')}
+        title="Go to calculate page"
+        onPress={() => navigation.navigate('Calculate')}
         color="#3498db"
       />
     </View>
