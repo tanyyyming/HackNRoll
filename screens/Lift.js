@@ -3,7 +3,6 @@ import { View, Image, Text, Button, Platform, Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Progress from 'react-native-progress';
 import { Accelerometer } from 'expo-sensors';
-import Motivation from './Motivation';
 
 function Lift({navigation}) {
   const [ { x, y, z}, setData] = useState({ x: 0, y: 0, z: 0 });
@@ -45,7 +44,7 @@ function Lift({navigation}) {
       setMaxZ(null);
     }
     if (acc >= threshold) {
-      navigation.navigate('Motivation');
+      navigation.navigate('Calculate');
     }
   }, [maxX, maxY, maxZ]);
 

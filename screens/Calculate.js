@@ -39,7 +39,7 @@ function Calculate({ navigation }) {
     const correctAnswer = qna.answer;
     if (answer === correctAnswer) {
       Alert.alert("Congratulation", "You are now officially awake!");
-      navigation.navigate("Alarm Clock", {isEnd: true});
+      navigation.navigate("Motivation");
     } else {
       Alert.alert("You are still sleepy!", "Try again my friend");
       setAnswer('');
