@@ -73,11 +73,11 @@ function Lift({navigation}) {
         style={{borderRadius: 10, borderWidth: 5, borderColor: '#5D2510'}}
       />
       <Image style={{width: 300, height: 400}} source={require('../assets/swing.png')} />
-      <Button
+      {/* <Button
         title="Go to calculate page"
         onPress={() => navigation.navigate('Calculate')}
         color="#3498db"
-      />
+      /> */}
       <Text
         className="py-12 text-3xl color-white"
         style={{
