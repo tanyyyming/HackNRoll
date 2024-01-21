@@ -10,8 +10,8 @@ function Lift({navigation}) {
   const [ maxY, setMaxY ] = useState(0);
   const [ maxZ, setMaxZ ] = useState(0);
   const [acc, setAcc] = useState(0);
-  const REQUIRED_ACC = 7.5;
-  const threshold = 3;
+  const REQUIRED_ACC = 5.0;
+  const threshold = 2;
 
   useEffect(() => {
     const subscription = Accelerometer.addListener(setData);
