@@ -7,10 +7,13 @@ import Lift from './screens/Lift';
 import Calculate from './screens/Calculate';
 import { NativeWindStyleSheet } from "nativewind";
 import Motivation from './screens/Motivation';
+import {AppRegistry} from 'react-native';
 
 NativeWindStyleSheet.setOutput({
   default: "native",
 });
+
+AppRegistry.registerComponent("main", () => Root);
 
 const Stack = createStackNavigator();
 
