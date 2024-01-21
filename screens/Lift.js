@@ -18,35 +18,77 @@ function Lift({navigation}) {
     return () => subscription.remove();
   }, []);
 
-  useEffect(() => {
-    if (maxX !== null && x > maxX) {
-      setMaxX(x);
+ const updateMax = async () => {
+    try {
+       if (maxX !== null && x > maxX) {
+             setMaxX(x);
+           }
+       if (maxY!==null && y > maxY) {
+             setMaxY(y);
+       }
+       if (maxZ !== null && z > maxZ) {
+             setMaxZ(z);
+       }
+    } catch (err) {
+             console.error(err);
     }
-    if (maxY!==null && y > maxY) {
-      setMaxY(y);
-    }
-    if (maxZ !== null && z > maxZ) {
-      setMaxZ(z);
-    }
-  }, [x, y, z]);
+ }
 
-  useEffect(() => {
-    if (maxX !== null && maxX > REQUIRED_ACC) {
-      setAcc(acc+1);
-      setMaxX(null);
-    }
-    if (maxY !== null && maxY > REQUIRED_ACC) {
-      setAcc(acc+1);
-      setMaxY(null);
-    }
-    if (maxZ !== null && maxZ > REQUIRED_ACC) {
-      setAcc(acc+1);
-      setMaxZ(null);
-    }
-    if (acc >= threshold) {
-      navigation.navigate('Calculate');
-    }
-  }, [maxX, maxY, maxZ]);
+ const updateCount = async () => {
+     try {
+           if (maxX !== null && maxX > REQUIRED_ACC) {
+              setAcc(acc+1);
+              setMaxX(null);
+            }
+            if (maxY !== null && maxY > REQUIRED_ACC) {
+              setAcc(acc+1);
+              setMaxY(null);
+            }
+            if (maxZ !== null && maxZ > REQUIRED_ACC) {
+              setAcc(acc+1);
+              setMaxZ(null);
+            }
+            if (acc >= threshold) {
+              navigation.navigate('Calculate');
+            }
+     } catch (err) {
+          console.error(err);
+     }
+  }
+
+   useEffect(() => {
+     updateMax().then(updateCount());
+   }, []);
+
+//  useEffect(() => {
+//    if (maxX !== null && x > maxX) {
+//      setMaxX(x);
+//    }
+//    if (maxY!==null && y > maxY) {
+//      setMaxY(y);
+//    }
+//    if (maxZ !== null && z > maxZ) {
+//      setMaxZ(z);
+//    }
+//  }, [x, y, z]);
+//
+//  useEffect(() => {
+//    if (maxX !== null && maxX > REQUIRED_ACC) {
+//      setAcc(acc+1);
+//      setMaxX(null);
+//    }
+//    if (maxY !== null && maxY > REQUIRED_ACC) {
+//      setAcc(acc+1);
+//      setMaxY(null);
+//    }
+//    if (maxZ !== null && maxZ > REQUIRED_ACC) {
+//      setAcc(acc+1);
+//      setMaxZ(null);
+//    }
+//    if (acc >= threshold) {
+//      navigation.navigate('Calculate');
+//    }
+//  }, [maxX, maxY, maxZ]);
 
   return (
     <View className="flex-1 align-text align items-center justify-center bg-coconut">
