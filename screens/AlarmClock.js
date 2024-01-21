@@ -123,7 +123,7 @@ const getData = async () => {
         {!showTimePicker && (
           <Image
             style={{ width: 340, height: 60 }}
-            source={require("../assets/logo.jpg")}
+            source={require("../assets/logo.png")}
           />
         )}
       </View>
@@ -191,21 +191,6 @@ const getData = async () => {
         </View>
       )}
 
-      {/* <Button
-        title="Go to motivation page"
-        onPress={() => navigation.navigate("Motivation")}
-        color="#3498db"
-      /> */}
-      {/* <Button
-        title="Go to Lift page"
-        onPress={() => navigation.navigate("Lift")}
-        color="#3498db"
-      /> */}
-      <Button
-        title="Go to Calculate page"
-        onPress={() => navigation.navigate("Calculate")}
-        color="#3498db"
-      />
     </View>
   );
 }
