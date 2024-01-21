@@ -32,21 +32,24 @@ function Lift({navigation}) {
 
   useEffect(() => {
     if (maxX !== null && maxX > REQUIRED_ACC) {
-      setAcc(acc+1);
+      setAcc(acc => acc + 1);
       setMaxX(null);
     }
     if (maxY !== null && maxY > REQUIRED_ACC) {
-      setAcc(acc+1);
+      setAcc(acc => acc + 1);
       setMaxY(null);
     }
     if (maxZ !== null && maxZ > REQUIRED_ACC) {
-      setAcc(acc+1);
+      setAcc(acc => acc + 1);
       setMaxZ(null);
     }
+  }, [maxX, maxY, maxZ]);
+
+  useEffect(() => {
     if (acc >= threshold) {
       navigation.navigate('Calculate');
     }
-  }, [maxX, maxY, maxZ]);
+  });
 
   return (
     <View className="flex-1 align-text align items-center justify-center bg-coconut">
