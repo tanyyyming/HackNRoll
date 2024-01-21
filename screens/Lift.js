@@ -43,13 +43,16 @@ function Lift({navigation}) {
       setAcc(acc => acc + 1);
       setMaxZ(null);
     }
+//    if (acc >= threshold) {
+//          navigation.navigate('Calculate');
+//    }
   }, [maxX, maxY, maxZ]);
 
   useEffect(() => {
     if (acc >= threshold) {
       navigation.navigate('Calculate');
     }
-  });
+  }, [acc]);
 
   return (
     <View className="flex-1 align-text align items-center justify-center bg-coconut">

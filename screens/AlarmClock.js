@@ -110,7 +110,7 @@ const getData = async () => {
             //     }
             //   ]
             // );
-            // clearInterval(checkAlarm); 
+            clearInterval(checkAlarm);
             navigation.navigate('Lift');
         }
     }, 1000);
